@@ -41,7 +41,8 @@ function parseDetails(html) {
     let $ = cheerio.load(html);
     let details = $("#details .row").text().split('\n')
         .map(function(el) { return el.trim() })
-        .filter(function(el) { return el !== '' });
+        .filter(function(el) { return el !== '' })
+        .map(function(el) { if (el.starsWith('by ')) { return el.replace('by ', '') } else { return el } });
     return details;
 }
 
