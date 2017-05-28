@@ -53,7 +53,7 @@ if (!url) {
     process.exit(1);
 }
 
-let ONLY_FIRST_N_BOOKS = 2;
+let ONLY_FIRST_N_BOOKS = 40;
 let OUT_DIR = path.resolve(__dirname, 'out');
 
 if (!fs.existsSync(OUT_DIR)) {
