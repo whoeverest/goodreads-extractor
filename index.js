@@ -83,7 +83,7 @@ r.get(url).then((html) => {
     });
     let listFilename = results[0].list.replace(/\s/g, '-');
     let output = books.join('\n'); // full tsv
-    fs.writeFileSync(path.resolve(OUT_DIR, listFilename + '.tsv'), output);
+    fs.writeFileSync(path.resolve(OUT_DIR, listFilename + '.csv'), output);
     console.error('Done!');
     process.exit(0);
 });
