@@ -42,7 +42,7 @@ function parseDetails(html) {
     let details = $("#details .row").text().split('\n')
         .map(function(el) { return el.trim() })
         .filter(function(el) { return el !== '' })
-        .map(function(el) { if (el.starsWith('by ')) { return el.replace('by ', '') } else { return el } });
+        .map(function(el) { if (el.startsWith('by ')) { return el.replace('by ', '') } else { return el } });
     return details;
 }
 
@@ -50,11 +50,11 @@ let url = process.argv[2];
 
 if (!url) {
     console.error('Usage:');
-    console.error('  node index.js https://goodreads.com/list/...');
+    console.error('  node index.js https://goodreads.com/list/... [ONLY_FIRST_N_BOOKS=40]');
     process.exit(1);
 }
 
-let ONLY_FIRST_N_BOOKS = 40;
+let ONLY_FIRST_N_BOOKS = process.argv[3] || 40;
 let OUT_DIR = path.resolve(__dirname, 'out');
 
 if (!fs.existsSync(OUT_DIR)) {
@@ -84,7 +84,9 @@ r.get(url).then((html) => {
     });
     let listFilename = results[0].list.replace(/\s/g, '-');
     let output = books.join('\n'); // full tsv
-    fs.writeFileSync(path.resolve(OUT_DIR, listFilename + '.csv'), output);
+    let outPath = path.resolve(OUT_DIR, listFilename + '.csv')
+    console.log('Writing to file:', outPath);
+    fs.writeFileSync(outPath, output);
     console.error('Done!');
     process.exit(0);
 });
