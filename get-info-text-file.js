@@ -9,6 +9,9 @@ Promise.mapSeries(lines, (line) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${line}&orderBy=relevance`;
     return r.get(url).then(function(json) {
         let results = JSON.parse(json);
+        if (results.totalItems === 0) {
+            return console.log('/')
+        }
         let firstMatch = results.items[0];
         let info = firstMatch.volumeInfo;
         let output = [
