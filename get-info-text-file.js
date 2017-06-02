@@ -4,7 +4,7 @@ let fs = require('fs');
 let path = require('path');
 
 let lines = fs.readFileSync(path.resolve(__dirname, 'input.txt'), 'utf-8').split('\n').filter((el) => el !== '');
-let key =  fs.readFileSync('google-api-key.txt');
+let key =  fs.readFileSync(path.resolve(__dirname, 'google-api-key.txt'));
 
 Promise.mapSeries(lines, (line) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${line}&orderBy=relevance&key=${key}`;
