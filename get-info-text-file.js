@@ -3,7 +3,11 @@ let r = require('request-promise');
 let fs = require('fs');
 let path = require('path');
 
-let lines = fs.readFileSync(path.resolve(__dirname, 'input.txt'), 'utf-8').split('\n').filter((el) => el !== '');
+let lines = fs.readFileSync(path.resolve(__dirname, 'input.txt'), 'utf-8')
+    .split('\n')
+    .filter((line) => line !== '')
+    .map((line) => line.replace(/[^a-z0-9 ]+/gi, '')); // allow only alphanum
+
 let key =  fs.readFileSync(path.resolve(__dirname, 'google-api-key.txt'));
 
 Promise.mapSeries(lines, (line) => {
