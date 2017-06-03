@@ -9,6 +9,8 @@ let key =  fs.readFileSync(path.resolve(__dirname, 'google-api-key.txt'));
 Promise.mapSeries(lines, (line) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${line}&orderBy=relevance&key=${key}`;
     return r.get(url).then(function(json) {
+        return Promise.delay(500).return(json);
+    }).then((json) => {
         let results = JSON.parse(json);
         if (results.totalItems === 0) {
             return console.log('/')
