@@ -84,7 +84,7 @@ r.get(url).then((html) => {
     });
     let listFilename = results[0].list.replace(/\s/g, '-');
     let output = books.join('\n'); // full tsv
-    let outPath = path.resolve(OUT_DIR, listFilename + '.csv')
+    let outPath = path.resolve(OUT_DIR, listFilename.replace(/\//g, '-') + '.csv')
     console.log('Writing to file:', outPath);
     fs.writeFileSync(outPath, output);
     console.error('Done!');
